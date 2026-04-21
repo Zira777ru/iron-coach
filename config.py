@@ -1,5 +1,4 @@
 from pydantic_settings import BaseSettings
-from pydantic import Field
 
 
 class Settings(BaseSettings):
@@ -7,8 +6,13 @@ class Settings(BaseSettings):
     admin_tg_id: int
 
     openrouter_api_key: str
-    ai_fast_model: str = "google/gemini-flash-1.5"
-    ai_smart_model: str = "anthropic/claude-3.5-sonnet"
+    # Free models on OpenRouter (as of 2026-04-20)
+    ai_fast_model: str = "google/gemma-4-31b-it:free"   # vision + text, 262k ctx
+    ai_smart_model: str = "openai/gpt-oss-120b:free"    # best for reasoning, 131k ctx
+    ai_vision_model: str = "google/gemma-4-31b-it:free" # supports image+video
+
+    # Google Gemini (used as primary vision backend — more reliable for photos)
+    gemini_api_key: str = ""
 
     fitbit_client_id: str = ""
     fitbit_client_secret: str = ""
@@ -20,6 +24,7 @@ class Settings(BaseSettings):
     steps_goal: int = 8000
     daily_check_hour: int = 9
     evening_check_hour: int = 21
+    tz: str = "Europe/Moscow"
 
     db_path: str = "/data/iron_coach.db"
 

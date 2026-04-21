@@ -21,7 +21,7 @@ _scheduler = None
 def init_scheduler(bot) -> AsyncIOScheduler:
     global _bot, _scheduler
     _bot = bot
-    _scheduler = AsyncIOScheduler(timezone=settings.TZ if hasattr(settings, "TZ") else "Europe/Moscow")
+    _scheduler = AsyncIOScheduler(timezone=settings.tz)
 
     # Morning motivation + gym check
     _scheduler.add_job(
