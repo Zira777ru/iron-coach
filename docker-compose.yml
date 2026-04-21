@@ -1,0 +1,32 @@
+services:
+  iron-coach:
+    build: .
+    restart: unless-stopped
+    volumes:
+      - ./data:/data
+    environment:
+      # Telegram
+      - TELEGRAM_TOKEN=${TELEGRAM_TOKEN}
+      - ADMIN_TG_ID=${ADMIN_TG_ID}
+
+      # OpenRouter
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - AI_FAST_MODEL=${AI_FAST_MODEL:-google/gemini-flash-1.5}
+      - AI_SMART_MODEL=${AI_SMART_MODEL:-anthropic/claude-3.5-sonnet}
+
+      # Fitbit
+      - FITBIT_CLIENT_ID=${FITBIT_CLIENT_ID}
+      - FITBIT_CLIENT_SECRET=${FITBIT_CLIENT_SECRET}
+
+      # TTS (OpenAI-compatible)
+      - TTS_URL=${TTS_URL:-}
+      - TTS_VOICE=${TTS_VOICE:-alloy}
+
+      # Coach settings
+      - NO_GYM_WARN_DAYS=${NO_GYM_WARN_DAYS:-2}
+      - STEPS_GOAL=${STEPS_GOAL:-8000}
+      - DAILY_CHECK_HOUR=${DAILY_CHECK_HOUR:-9}
+      - EVENING_CHECK_HOUR=${EVENING_CHECK_HOUR:-21}
+      - TZ=${TZ:-Europe/Moscow}
+
+      - DB_PATH=/data/iron_coach.db
